@@ -12,13 +12,24 @@ h1 {
   text-shadow: 0 0 10px #00ffff;
 }
 
-#startBtn {
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00ffff;
+}
+
+.start-button {
+  display: inline-block;
+  margin-top: 20px;
   padding: 10px 20px;
   font-size: 18px;
   background-color: #00ffff;
-  border: none;
+  color: black;
+  text-decoration: none;
   border-radius: 5px;
-  cursor: pointer;
   box-shadow: 0 0 10px #00ffff;
 }
 
@@ -45,9 +56,4 @@ h1 {
 #gameOver h2 {
   font-size: 28px;
   color: #ff4444;
-}
-
-#leaderboard {
-  margin-top: 20px;
-  font-size: 16px;
 }
