@@ -6,6 +6,16 @@ let level = 1;
 let starSpeed = 2;
 let asteroidSpeed = 2;
 
+// Load images
+const playerImg = new Image();
+playerImg.src = "assets/player.png";
+
+const starImg = new Image();
+starImg.src = "assets/star.png";
+
+const asteroidImg = new Image();
+asteroidImg.src = "assets/asteroid.png";
+
 function setupGame() {
   canvas = document.getElementById("gameCanvas");
   ctx = canvas.getContext("2d");
@@ -27,35 +37,20 @@ function setupGame() {
 }
 
 function drawPlayer() {
-  ctx.fillStyle = "#FFD700";
-  ctx.shadowColor = "#FFD700";
-  ctx.shadowBlur = 15;
-  ctx.fillRect(player.x, player.y, player.width, player.height);
-  ctx.shadowBlur = 0;
+  ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
 }
 
 function drawStar(star) {
-  ctx.beginPath();
-  ctx.arc(star.x, star.y, 10, 0, Math.PI * 2);
-  ctx.fillStyle = "#00FFFF";
-  ctx.shadowColor = "#00FFFF";
-  ctx.shadowBlur = 10;
-  ctx.fill();
-  ctx.closePath();
-  ctx.shadowBlur = 0;
+  ctx.drawImage(starImg, star.x - 10, star.y - 10, 20, 20);
 }
 
 function drawAsteroid(ast) {
-  ctx.beginPath();
-  ctx.arc(ast.x, ast.y, 15, 0, Math.PI * 2);
-  ctx.fillStyle = "#888";
-  ctx.fill();
-  ctx.closePath();
+  ctx.drawImage(asteroidImg, ast.x - 15, ast.y - 15, 30, 30);
 }
 
 function spawnStar() {
   let x = Math.random() * (canvas.width - 20) + 10;
-  let y = Math.random() * (canvas.height / 2);
+  let y = Math.random() * (canvas.height - 100);
   let dx = (Math.random() - 0.5) * starSpeed;
   let dy = (Math.random() - 0.5) * starSpeed;
   stars.push({ x, y, dx, dy });
@@ -71,11 +66,9 @@ function updateStars() {
     stars[i].x += stars[i].dx;
     stars[i].y += stars[i].dy;
 
-    // Bounce off walls
     if (stars[i].x < 0 || stars[i].x > canvas.width) stars[i].dx *= -1;
-    if (stars[i].y < 0 || stars[i].y > canvas.height / 2) stars[i].dy *= -1;
+    if (stars[i].y < 0 || stars[i].y > canvas.height) stars[i].dy *= -1;
 
-    // Collision with player
     if (
       stars[i].x > player.x &&
       stars[i].x < player.x + player.width &&
@@ -112,7 +105,7 @@ function updateAsteroids() {
 function movePlayer() {
   if (keys["ArrowLeft"] && player.x > 0) player.x -= 5;
   if (keys["ArrowRight"] && player.x < canvas.width - player.width) player.x += 5;
-  if (keys["ArrowUp"] && player.y > canvas.height / 2) player.y -= 5;
+  if (keys["ArrowUp"] && player.y > 0) player.y -= 5;
   if (keys["ArrowDown"] && player.y < canvas.height - player.height) player.y += 5;
 }
 
