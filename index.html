@@ -6,22 +6,15 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🌌 Star Catcher</h1>
-  <button id="startBtn">Start Game</button>
-  <canvas id="gameCanvas" width="400" height="600"></canvas>
-  <div id="hud">
-    <span id="score">Score: 0</span>
-    <span id="lives">Lives: 5</span>
-    <span id="level">Level: 1</span>
+  <div class="container">
+    <h1>🌌 Star Catcher: Cosmic Rescue</h1>
+    <p>
+      Welcome to <strong>Star Catcher</strong>, a fast-paced cosmic arcade game where you play as Nova, a guardian of the galaxy. Your mission: catch falling stars to restore balance to the universe. The longer you survive, the faster the stars fall. Can you keep up?
+    </p>
+    <p>
+      This game was created by <strong>MissionOperation</strong>, a creative force dedicated to building fun, immersive browser experiences.
+    </p>
+    <a href="game.html" class="start-button">Play the Game</a>
   </div>
-  <div id="gameOver" style="display:none;">
-    <h2>Game Over</h2>
-    <p id="finalScore"></p>
-    <input type="text" id="playerName" placeholder="Enter your name">
-    <button onclick="submitScore()">Submit Score</button>
-    <div id="leaderboard"></div>
-    <button onclick="restartGame()">Play Again</button>
-  </div>
-  <script src="script.js"></script>
 </body>
 </html>
