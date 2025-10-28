@@ -9,15 +9,13 @@ let asteroidSpeed = 2;
 
 // Load images
 const playerImg = new Image();
-playerImg.src = "assets/player.png";
-
 const starImg = new Image();
-starImg.src = "assets/star.png";
-
 const asteroidImg = new Image();
-asteroidImg.src = "assets/asteroid.png";
-
 const backgroundImg = new Image();
+
+playerImg.src = "assets/player.png";
+starImg.src = "assets/star.png";
+asteroidImg.src = "assets/asteroid.png";
 backgroundImg.src = "assets/background.jpg";
 
 // Load sounds
@@ -27,6 +25,24 @@ music.loop = true;
 const sfxCatch = new Audio("assets/catch.mp3");
 const sfxHit = new Audio("assets/hit.mp3");
 const sfxPower = new Audio("assets/powerup.mp3");
+
+// Wait for all images to load before enabling Start
+let imagesLoaded = 0;
+const totalImages = 4;
+
+function checkAllImagesLoaded() {
+  imagesLoaded++;
+  if (imagesLoaded === totalImages) {
+    document.getElementById("startBtn").disabled = false;
+  }
+}
+
+playerImg.onload = checkAllImagesLoaded;
+starImg.onload = checkAllImagesLoaded;
+asteroidImg.onload = checkAllImagesLoaded;
+backgroundImg.onload = checkAllImagesLoaded;
+
+document.getElementById("startBtn").disabled = true;
 
 function setupGame() {
   canvas = document.getElementById("gameCanvas");
@@ -205,7 +221,7 @@ function updatePowerUps() {
       powerUps.splice(i, 1);
     }
   }
-}
+  }
 
 function applyPowerUp(type) {
   if (type === "life") {
@@ -231,7 +247,9 @@ function updateParticles() {
       particles.splice(i, 1);
     }
   }
-  function movePlayer() {
+}
+
+function movePlayer() {
   let dx = 0, dy = 0;
   if (keys["ArrowLeft"]) dx -= 5;
   if (keys["ArrowRight"]) dx += 5;
@@ -241,11 +259,9 @@ function updateParticles() {
   player.x += dx;
   player.y += dy;
 
-  // Clamp position
   player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
   player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
 
-  // Update angle
   if (dx !== 0 || dy !== 0) {
     player.angle = Math.atan2(dy, dx);
     spawnParticle(player.x + player.width / 2, player.y + player.height / 2);
@@ -289,7 +305,7 @@ function restartGame() {
 function startGame() {
   setupGame();
   gameRunning = true;
-  music.play();
+  try { music.play(); } catch (e) { console.warn("Music autoplay blocked:", e); }
   starInterval = setInterval(spawnStar, 2000);
   asteroidInterval = setInterval(spawnAsteroid, 1500);
   powerUpInterval = setInterval(spawnPowerUp, 20000);
