@@ -22,6 +22,7 @@ function setupGame() {
   document.getElementById("lives").innerText = "Lives: 5";
   document.getElementById("level").innerText = "Level: 1";
   document.getElementById("gameOver").style.display = "none";
+  document.getElementById("leaderboard").innerHTML = "";
 
   catchSound = new Audio("assets/catch.mp3");
   missSound = new Audio("assets/miss.mp3");
@@ -124,3 +125,28 @@ document.getElementById("startBtn").onclick = function () {
 
 window.addEventListener("keydown", e => keys[e.key] = true);
 window.addEventListener("keyup", e => keys[e.key] = false);
+
+// 🌍 Leaderboard submission
+function submitScore() {
+  const name = document.getElementById("playerName").value || "Anonymous";
+  fetch("https://your-backend-url/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, score })
+  }).then(() => loadLeaderboard(score));
+}
+
+function loadLeaderboard(playerScore) {
+  fetch(`https://your-backend-url/leaderboard?score=${playerScore}`)
+    .then(res => res.json())
+    .then(data => {
+      const leaderboard = document.getElementById("leaderboard");
+      leaderboard.innerHTML = "<h3>🌍 Global Leaderboard</h3>";
+      data.topScores.forEach((entry, i) => {
+        leaderboard.innerHTML += `<p>#${i + 1} ${entry.name}: ${entry.score}</p>`;
+      });
+      if (data.playerRank > 10) {
+        leaderboard.innerHTML += `<p>You ranked #${data.playerRank} with ${playerScore} points</p>`;
+      }
+    });
+}
