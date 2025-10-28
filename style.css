@@ -46,3 +46,8 @@ h1 {
   font-size: 28px;
   color: #ff4444;
 }
+
+#leaderboard {
+  margin-top: 20px;
+  font-size: 16px;
+}
