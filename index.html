@@ -2,16 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Star Catcher: The Cosmic Rescue</title>
+  <title>Star Catcher: Cosmic Rescue</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🌟 Star Catcher: The Cosmic Rescue</h1>
+  <h1>🌌 Star Catcher</h1>
   <button id="startBtn">Start Game</button>
   <canvas id="gameCanvas" width="400" height="600"></canvas>
   <div id="hud">
     <span id="score">Score: 0</span>
     <span id="lives">Lives: 5</span>
+    <span id="level">Level: 1</span>
+  </div>
+  <div id="gameOver" style="display:none;">
+    <h2>Game Over</h2>
+    <p id="finalScore"></p>
+    <button onclick="restartGame()">Play Again</button>
   </div>
   <script src="script.js"></script>
 </body>
